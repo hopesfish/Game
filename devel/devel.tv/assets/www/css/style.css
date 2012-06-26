@@ -1,7 +1,8 @@
 html, body {margin:0; height:100%; background-color:#000;}
+#delve {position: relative;}
 #delve .en { font-family:Georgia,Serif; }
 #delve .cn { font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu; }
-#delve { margin:auto; width:1120px; height:830px; background-image:url(./images/background.jpg); }
+#delve { margin:auto; width:1800px; height:900px; background-image:url(./images/background.jpg); background-position:0px -40px;}
 #delve h1.title, #delve h2.title {
     display:block;
     margin: auto;
@@ -77,4 +78,49 @@ html, body {margin:0; height:100%; background-color:#000;}
     background-position:center;
     text-indent: -9999px;
     overflow:hidden;
+}
+#delve .heroZone {
+    position: absolute;
+    left: 50px;
+    bottom: 50px;
+    width: 90%;
+    height: 200px;
+}
+#delve .heros {
+    width: 760px;
+    height: 100%;
+}
+#delve .hero {
+    float:left;
+    width: 150px;
+    height: 100%;
+    margin: 10px;
+    border: 5px solid #333;
+    -webkit-border-radius:15px;
+    -moz-border-radius: 15px;
+    opacity: 0.8;
+}
+#delve .hero.warrior {
+    background-image:url(./images/warrior_gray.jpg);
+}
+#delve .hero.warrior.actived {
+   background-image:url(./images/warrior.jpg);
+}
+#delve .hero.rogue {
+    background-image:url(./images/rogue_gray.jpg);
+}
+#delve .hero.rogue.actived {
+   background-image:url(./images/rogue.jpg);
+}
+#delve .hero.wizard {
+    background-image:url(./images/wizard_gray.jpg);
+}
+#delve .hero.wizard.actived {
+   background-image:url(./images/wizard.jpg);
+}
+#delve .hero.cleric {
+    background-image:url(./images/cleric_gray.jpg);
+}
+#delve .hero.cleric.actived {
+   background-image:url(./images/cleric.jpg);
 }
