@@ -6,30 +6,24 @@ html, body {margin:0; height:100%; background-color:#000;}
 #delve h1.title, #delve h2.title {
     display:block;
     margin: auto;
-    width: 700px;
     height: 2em;
+    font-size:5em;
+    line-height:4em;
     font-weight:bold;
     text-align:center;
     -webkit-border-radius:15px;
     -moz-border-radius: 15px;
-    opacity: 0.5;
+    color: #333;
+    opacity: 0.8;
     position:relative;
     text-shadow: 0px 0px 11px #555;
 }
-#delve h1.title {
-    font-size:5em;
-    line-height:4em;
-}
-#delve h2.title {
-    font-size:5em;
-    line-height:4em;
-}
-#delve .options {
+#delve .menus {
     margin: auto;
     width: 400px;
-    margin-top: 10%;
+    margin-top: 7%;
 }
-#delve .option {
+#delve .menu {
     margin: auto;
     margin-top: 2em;
     width: 100%;
@@ -46,7 +40,7 @@ html, body {margin:0; height:100%; background-color:#000;}
     cursor:pointer;
     text-shadow: 0px 0px 11px #555;
 }
-#delve .option.selected {
+#delve .menu.selected {
     color:#fff;
     font-size:2em;
     background-color:#000;
@@ -54,14 +48,14 @@ html, body {margin:0; height:100%; background-color:#000;}
 }
 #delve .stages {
     margin: auto;
-    width: 800px;
-    margin-top: 10%;
+    width: 50%;
+    margin-top: 5%;
 }
 #delve .stage {
     float: left;
     width: 120px;
     height: 120px;
-    margin: 40px;
+    margin: 80px 30px;
     color:#fff;
     background-color:#333;
     opacity: 0.8;
@@ -84,9 +78,11 @@ html, body {margin:0; height:100%; background-color:#000;}
     height: 2.2em;
     font-size:2.2em;
     line-height:2.2em;
-    color: #fff;
+    color: #333;
     font-weight: bold;
     text-align: center;
+    text-shadow: 0px 0px 11px #555;
+    opacity: 0.8;
 }
 #delve .characterZone {
     position: absolute;

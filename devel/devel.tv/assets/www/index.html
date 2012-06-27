@@ -5,16 +5,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./css/style.css" type="text/css" rel="stylesheet" charset="utf-8" />
+    <script data-dojo-config="
+        async: 1,
+        dojoBlankHtmlUrl: location.pathname.replace(/\/[^/]+$/, '') + '/blank.html',
+        packages: [ {
+            name: 'delve',
+            location: location.pathname.replace(/\/[^/]+$/, '') + '/js/delve'
+        } ]" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js"></script>
+        <script>
+            // load our custom/Hello module and wait for the DOM to be ready
+            require([ "delve/Menu", "dojo/domReady!" ], function(Menu){
+                var menu = new Menu();
+                menu.placeAt("menu", "replace");
+            });
+        </script>
 </head> 
 <body> 
 <div id="delve">
     <h1 class="title cn">Delve·屠龙</h1>
-    <div class="options">
-        <div class="option selected cn">开始游戏</div>
-        <div class="option cn">游戏设置</div>
-        <div class="option cn">游戏帮助</div>
-        <div class="option cn">关于游戏</div>
-    </div>
+    <div id="menu"></div>
     <audio autoplay="true" loop="true">
         <source src="./audio/background.ogg" type="audio/mpeg" />
     </audio>
