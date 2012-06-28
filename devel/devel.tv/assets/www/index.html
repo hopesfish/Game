@@ -7,18 +7,10 @@
     <link href="./css/style.css" type="text/css" rel="stylesheet" charset="utf-8" />
     <script data-dojo-config="
         async: 1,
-        dojoBlankHtmlUrl: location.pathname.replace(/\/[^/]+$/, '') + '/blank.html',
         packages: [ {
             name: 'delve',
             location: '/js/delve'
         } ]" src="./js/dojo-1.7.2/dojo/dojo.js"></script>
-    <!--<script data-dojo-config="
-        async: 1,
-        dojoBlankHtmlUrl: location.pathname.replace(/\/[^/]+$/, '') + '/blank.html',
-        packages: [ {
-            name: 'delve',
-            location: location.pathname.replace(/\/[^/]+$/, '') + '/js/delve'
-        } ]" src="./js/dojo-1.7.2/dojo/dojo.js"></script> -->
     <script>
         // load our custom/Hello module and wait for the DOM to be ready
         require([ "delve/Menu", "dojo/domReady!" ], function(Menu){
