@@ -10,6 +10,8 @@ public class DelveActivity extends DroidGap {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.main);
+        //this.appView.getSettings().setAllowFileAccess(true);
         super.loadUrl("file:///android_asset/www/index.html");
+        //super.loadUrl("http://192.168.1.102/");
     }
 }

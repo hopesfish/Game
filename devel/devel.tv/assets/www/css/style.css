@@ -1,9 +1,9 @@
 html, body {margin:0; height:100%; background-color:#000;}
-#delve {position: relative;}
-#delve .en { font-family:Georgia,Serif; }
-#delve .cn { font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu; }
-#delve { margin:auto; width:1800px; height:900px; background-image:url(./images/background.jpg); background-position:0px -40px;}
-#delve h1.title, #delve h2.title {
+.delve {position: relative;}
+.delve .en { font-family:Georgia,Serif; }
+.delve .cn { font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu; }
+.delve { margin:auto; width:1800px; height:900px; background-image:url(./images/background.jpg); background-position:0px -40px;}
+.delve h1.title, .delve h2.title {
     display:block;
     margin: auto;
     height: 2em;
@@ -18,12 +18,12 @@ html, body {margin:0; height:100%; background-color:#000;}
     position:relative;
     text-shadow: 0px 0px 11px #555;
 }
-#delve .menus {
+.delve .menus {
     margin: auto;
     width: 400px;
     margin-top: 7%;
 }
-#delve .menu {
+.delve .menu {
     margin: auto;
     margin-top: 2em;
     width: 100%;
@@ -40,18 +40,18 @@ html, body {margin:0; height:100%; background-color:#000;}
     cursor:pointer;
     text-shadow: 0px 0px 11px #555;
 }
-#delve .menu.selected {
+.delve .menu.selected {
     color:#fff;
     font-size:2em;
     background-color:#000;
     opacity: 0.8;
 }
-#delve .stages {
+.delve .stages {
     margin: auto;
     width: 50%;
     margin-top: 5%;
 }
-#delve .stage {
+.delve .stage {
     float: left;
     width: 120px;
     height: 120px;
@@ -66,7 +66,7 @@ html, body {margin:0; height:100%; background-color:#000;}
     -webkit-border-radius:15px;
     -moz-border-radius: 15px;
 }
-#delve .stage.lock {
+.delve .stage.lock {
     background-image:url(./images/lock.png);
     background-repeat: no-repeat;
     background-position:center;
@@ -74,7 +74,7 @@ html, body {margin:0; height:100%; background-color:#000;}
     overflow:hidden;
 }
 
-#delve .head {
+.delve .head {
     height: 2.2em;
     font-size:2.2em;
     line-height:2.2em;
@@ -84,24 +84,24 @@ html, body {margin:0; height:100%; background-color:#000;}
     text-shadow: 0px 0px 11px #555;
     opacity: 0.8;
 }
-#delve .characterZone {
+.delve .characterZone {
     position: absolute;
     left: 80px;
     width: 90%;
     height: 200px;
 }
-#delve .characterZone.heroZone {
+.delve .characterZone.heroZone {
     bottom: 50px;
 }
-#delve .characterZone.daemonZone {
+.delve .characterZone.daemonZone {
     top: 80px;
 }
-#delve .characters {
+.delve .characters {
     float:left;
     width: 760px;
     height: 100%;
 }
-#delve .character {
+.delve .character {
     float:left;
     width: 148px;
     height: 100%;
@@ -111,37 +111,37 @@ html, body {margin:0; height:100%; background-color:#000;}
     -moz-border-radius: 15px;
     opacity: 0.8;
 }
-#delve .character.warrior {
+.delve .character.warrior {
     background-image:url(./images/warrior_gray.jpg);
 }
-#delve .character.warrior.actived {
+.delve .character.warrior.actived {
    background-image:url(./images/warrior.jpg);
 }
-#delve .character.rogue {
+.delve .character.rogue {
     background-image:url(./images/rogue_gray.jpg);
 }
-#delve .character.rogue.actived {
+.delve .character.rogue.actived {
    background-image:url(./images/rogue.jpg);
 }
-#delve .character.wizard {
+.delve .character.wizard {
     background-image:url(./images/wizard_gray.jpg);
 }
-#delve .character.wizard.actived {
+.delve .character.wizard.actived {
    background-image:url(./images/wizard.jpg);
 }
-#delve .character.cleric {
+.delve .character.cleric {
     background-image:url(./images/cleric_gray.jpg);
 }
-#delve .character.cleric.actived {
+.delve .character.cleric.actived {
    background-image:url(./images/cleric.jpg);
 }
-#delve .character.spider {
+.delve .character.spider {
     background-image:url(./images/spider_gray.jpg);
 }
-#delve .character.spider.actived {
+.delve .character.spider.actived {
    background-image:url(./images/spider.jpg);
 }
-#delve .info {
+.delve .info {
     float:left;
     margin-top: 10px;
     width: 850px;
@@ -157,32 +157,32 @@ html, body {margin:0; height:100%; background-color:#000;}
     opacity: 0.7;
     text-shadow: 0px 0px 11px #555;
 }
-#delve .info .title{
+.delve .info .title{
     float:left;
     width: 15%;
     text-indent: 40px;
 }
-#delve .info .bloods{
+.delve .info .bloods{
     float:left;
     width: 30%;
 }
-#delve .info .blood{
+.delve .info .blood{
     background:url(./images/blood.png) 0px 5px no-repeat;
     padding:0px 12px;
     margin:0px 3px;
 }
-#delve .info .skills{
+.delve .info .skills{
     float:left;
     width: 30%;
 }
-#delve .info .skill{
+.delve .info .skill{
     padding:0px 12px;
     margin:0px 3px;
 }
-#delve .info .skill.attack{
+.delve .info .skill.attack{
     background:url(./images/attack.png) 0px 4px no-repeat;
 }
-#delve .info .detail{
+.delve .info .detail{
     clear: both;
     width:90%;
     margin:auto;

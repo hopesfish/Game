@@ -10,23 +10,26 @@
         dojoBlankHtmlUrl: location.pathname.replace(/\/[^/]+$/, '') + '/blank.html',
         packages: [ {
             name: 'delve',
+            location: '/js/delve'
+        } ]" src="./js/dojo-1.7.2/dojo/dojo.js"></script>
+    <!--<script data-dojo-config="
+        async: 1,
+        dojoBlankHtmlUrl: location.pathname.replace(/\/[^/]+$/, '') + '/blank.html',
+        packages: [ {
+            name: 'delve',
             location: location.pathname.replace(/\/[^/]+$/, '') + '/js/delve'
-        } ]" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js"></script>
-        <script>
-            // load our custom/Hello module and wait for the DOM to be ready
-            require([ "delve/Menu", "dojo/domReady!" ], function(Menu){
-                var menu = new Menu();
-                menu.placeAt("menu", "replace");
-            });
-        </script>
+        } ]" src="./js/dojo-1.7.2/dojo/dojo.js"></script> -->
+    <script>
+        // load our custom/Hello module and wait for the DOM to be ready
+        require([ "delve/Menu", "dojo/domReady!" ], function(Menu){
+            var menu = new Menu();
+            menu.placeAt(document.body);
+        });
+    </script>
 </head> 
 <body> 
-<div id="delve">
-    <h1 class="title cn">Delve·屠龙</h1>
-    <div id="menu"></div>
-    <audio autoplay="true" loop="true">
-        <source src="./audio/background.ogg" type="audio/mpeg" />
-    </audio>
-</div>
+<audio autoplay="true" loop="true">
+    <source src="./audio/background.ogg" type="audio/mpeg" />
+</audio>
 </body>
 </html>
