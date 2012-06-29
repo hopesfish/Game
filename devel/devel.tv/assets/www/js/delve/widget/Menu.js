@@ -25,7 +25,7 @@ define([ "dojo/_base/kernel",
         },
         onUp: function() {
             this.selected -= 1;
-            if (this.selected < 0) { this.selected = this.count; }
+            if (this.selected < 0) { this.selected = this.count - 1; }
             this.select();
         },
 
