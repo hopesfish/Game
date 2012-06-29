@@ -1,4 +1,3 @@
-// dojo/_base/declare and dijit/Dialog are loaded from CDN
 define([ "dojo/_base/kernel",
          "dojo/_base/declare",
          "delve/base",
