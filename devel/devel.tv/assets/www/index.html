@@ -5,12 +5,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./css/style.css" type="text/css" rel="stylesheet" charset="utf-8" />
+    <!-- 部署到build才用的头
     <script data-dojo-config="
         async: 1,
         packages: [ {
             name: 'delve',
             location: '/js/delve'
-        } ]" src="./js/dojo-1.7.2/dojo/dojo.js"></script>
+        } ]" src="./js/dojo-1.7.2/dojo/dojo.js"></script> -->
+
+    <!-- 将assert/www目录作为nginx跟目录,访问localhost即可查看效果的目录 -->
+    <script data-dojo-config="
+        async: 1,
+        packages: [ {
+            name: 'delve',
+            location: '/js/delve'
+        } ]" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js"></script>
+
     <script>
         // load our custom/Hello module and wait for the DOM to be ready
         require([ "delve/widget/Menu", "delve/event/adapter/PCKeyboardAdapter", "dojo/domReady!" ], function(Menu, Adapter){
