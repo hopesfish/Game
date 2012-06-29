@@ -6,7 +6,7 @@ define([ "dojo/_base/kernel",
          "dijit/_Widget",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
-         "dojo/text!./templates/Menu.html",
+         "dojo/text!./templates/Stage.html",
          "delve/base",
          "delve/event/EventMixin",
          "dojo/NodeList-dom" ], function(dojo, declare, domAttr, query, widget, templatedMixin, widgetsInTemplateMixin, template, base, eventMixin){
@@ -17,14 +17,15 @@ define([ "dojo/_base/kernel",
         count: 0,
 
         postCreate: function() {
-        	this.inherited(arguments);
-        	this.count = query("div", this.menuContainer).length;
+            this.inherited(arguments);
+            this.count = query("div", this.stageContainer).length;
         },
 
         select: function() {
-            query('div.selected', this.menuContainer).removeClass("selected");
-            query('div:nth-child(' + (this.selected + 1) +')', this.menuContainer).addClass("selected");
+            query('div.selected', this.stageContainer).removeClass("selected");
+            query('div:nth-child(' + (this.selected + 1) +')', this.stageContainer).addClass("selected");
         },
+
         onUp: function() {
             this.selected -= 1;
             if (this.selected < 0) { this.selected = this.count - 1; }
@@ -38,8 +39,6 @@ define([ "dojo/_base/kernel",
         },
 
         onEnter: function() {
-            var menu = query('div.selected', this.menuContainer)[0], EVENTS = base.EVENTS;
-            this.publish(EVENTS.WIDGETSELECT, [domAttr.get(menu, 'data-delve-widget')]);
         }
     });
 });

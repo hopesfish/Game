@@ -1,4 +1,4 @@
-define([ "dojo/_base/kernel", "dojo/_base/connect", "delve/base" ], function(dojo, connect, base){
+define([ "dojo/_base/kernel", "dojo/_base/connect", "delve/base", 'dojo/_base/event'], function(dojo, connect, base){
     return dojo.declare([], {
         watch: function() {
             var EVENTS = base.EVENTS;
@@ -28,6 +28,7 @@ define([ "dojo/_base/kernel", "dojo/_base/connect", "delve/base" ], function(doj
                     default:
                         break;
                 }
+                dojo.stopEvent(e);
             });
         }
     });

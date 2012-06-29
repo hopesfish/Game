@@ -66,6 +66,10 @@ html, body {margin:0; height:100%; background-color:#000;}
     -webkit-border-radius:15px;
     -moz-border-radius: 15px;
 }
+.delve .stage.selected {
+    color:red;
+    font-weight: bold;
+}
 .delve .stage.lock {
     background-image:url(./images/lock.png);
     background-repeat: no-repeat;

@@ -21,15 +21,7 @@
             location: '/js/delve'
         } ]" src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js"></script>
 
-    <script>
-        // load our custom/Hello module and wait for the DOM to be ready
-        require([ "delve/widget/Menu", "delve/event/adapter/PCKeyboardAdapter", "dojo/domReady!" ], function(Menu, Adapter){
-            var menu = new Menu();
-            menu.placeAt(document.body);
-            var adapter = new Adapter();
-            adapter.watch();
-        });
-    </script>
+    <script src="/js/delve/application.js"></script>
 </head> 
 <body> 
 <audio autoplay="true" loop="true">
