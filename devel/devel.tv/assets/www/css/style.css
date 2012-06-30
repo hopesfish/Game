@@ -70,7 +70,7 @@ html, body {margin:0; height:100%; background-color:#000;}
     color:red;
     font-weight: bold;
 }
-.delve .stage.lock1 {
+.delve .stage.lock {
     background-image:url(./images/lock.png);
     background-repeat: no-repeat;
     background-position:center;

@@ -1,6 +1,8 @@
 define([ "dojo/_base/kernel",
          "dojo/_base/declare",
+         "dojo/_base/array",
          "dojo/dom-attr",
+         "dojo/dom-construct",
          "dojo/query",
          "dijit/_Widget",
          "dijit/_TemplatedMixin",
@@ -8,21 +10,37 @@ define([ "dojo/_base/kernel",
          "dojo/text!./templates/Stage.html",
          "delve/base",
          "delve/event/EventMixin",
-         "dojo/NodeList-dom" ], function(dojo, declare, domAttr, query, widget, templatedMixin, widgetsInTemplateMixin, template, base, eventMixin){
+         "delve/resource/Stage",
+         "dojo/NodeList-dom" ],
+    function(dojo, declare, array, domAttr, domConstruct, query, widget, templatedMixin, widgetsInTemplateMixin, template, base, eventMixin, Stage){
     // declare our custom class
     return dojo.declare([widget, templatedMixin, widgetsInTemplateMixin, eventMixin], {
         templateString: template,
+        stages: null,
         maxPerCol: 5,
         maxRow: 0,
         rowIndex: 0,
         colIndex: 0,
         selected: 0,
-        count: 0,
+        unlockCount: 0,
 
         postCreate: function() {
             this.inherited(arguments);
-            this.count = query("div", this.stageContainer).length;
-            this.maxRow = Math.round(this.count / this.maxPerCol);
+            this.stages = delve.resource.Stage.all();
+            this.unlockCount = array.filter(this.stages, function(stage){ return !stage.locked; }).length;
+            this.maxRow = Math.ceil(this.unlockCount / this.maxPerCol);
+            this.render();
+            this.select();
+        },
+
+        render: function() {
+            var that = this, stages = this.stages;
+            array.forEach(stages, function(stage) {
+                var locked = stage.locked ? 'lock' : '';
+                domConstruct.place(
+                        '<div class="stage ' + locked + '">' +  stage.id + '</div>',
+                        that.stageContainer, 'last');
+            });
         },
 
         select: function() {
@@ -36,10 +54,10 @@ define([ "dojo/_base/kernel",
             if (this._isLastRow()) {
                 if (this.colIndex < 0) { this.colIndex = this.maxPerCol - 1; }
             } else if (this.colIndex < 0) {
-                if (this.count % this.maxPerCol == 0) {
+                if (this.unlockCount % this.maxPerCol == 0) {
                     this.colIndex = this.maxPerCol - 1;
                 } else {
-                    this.colIndex = this.count % this.maxPerCol - 1;
+                    this.colIndex = this.unlockCount % this.maxPerCol - 1;
                 }
             }
             this.select();
@@ -73,12 +91,12 @@ define([ "dojo/_base/kernel",
         },
 
         _isExceed: function() {
-            if (((this.rowIndex + 1) * this.maxPerCol + this.colIndex + 1) > this.count) { return true; }
+            if (((this.rowIndex + 1) * this.maxPerCol + this.colIndex + 1) > this.unlockCount) { return true; }
             return false;
         },
 
         _isLastItem: function() {
-            if ((this.rowIndex * this.maxPerCol + this.colIndex) == this.count) { return true; }
+            if ((this.rowIndex * this.maxPerCol + this.colIndex) == this.unlockCount) { return true; }
             return false;
         },
 
