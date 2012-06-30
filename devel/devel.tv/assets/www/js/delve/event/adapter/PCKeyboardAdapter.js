@@ -28,7 +28,9 @@ define([ "dojo/_base/kernel", "dojo/_base/connect", "delve/base", 'dojo/_base/ev
                     default:
                         break;
                 }
-                dojo.stopEvent(e);
+                if (e.charOrCode !== dojo.keys.F12 && e.charOrCode !== dojo.keys.F5) {
+                    dojo.stopEvent(e);
+                }
             });
         }
     });
