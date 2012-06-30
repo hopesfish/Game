@@ -6,27 +6,30 @@ define([ "dojo/_base/kernel",
     return dojo.declare([eventMixin], {
         widget: null, // selected widget
         history: [], // history of selected widget
-        onSubscribe: function(event, data) {
-            var that = this, EVENTS = base.EVENTS;
+        onSubscribe: function(event, opts) {
+            var that = this, EVENTS = base.EVENTS, widgetPath = opts[0], widgetParams = {};
+            if (opts[1]) { widgetParams = opts[1]; }
+            widgetParams.goback = false;
+
             if (event === EVENTS.WIDGETSELECT) {
-                require([data], function(Widget) {
-                    that.select(Widget);
+                require([widgetPath], function(Widget) {
+                    that.select(Widget, widgetParams);
                 });
             }
         },
         onBackspace: function() {
             if (this.history.length === 0) { return; }
             var Widget = this.history.pop();
-            this.select(Widget, true);
+            this.select(Widget, {goback: true});
         },
-        select: function(Widget, goback) {
-            var widget;
+        select: function(Widget, widgetParams) {
+            var widget, goback = widgetParams ? widgetParams.goback : false;
             if (this.widget) {
                 goback === true ? null : this.history.push(this.widget.constructor);
                 this.widget.unwatch();
                 this.widget.destroy();
             }
-            widget = this.widget = new Widget();
+            widget = this.widget = new Widget(widgetParams);
             widget.placeAt(document.body);
         }
     });

@@ -16,8 +16,8 @@ define([ "dojo/_base/kernel",
         count: 0,
 
         postCreate: function() {
-        	this.inherited(arguments);
-        	this.count = query("div", this.menuContainer).length;
+            this.inherited(arguments);
+            this.count = query("div", this.menuContainer).length;
         },
 
         select: function() {

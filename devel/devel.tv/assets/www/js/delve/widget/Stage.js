@@ -17,6 +17,7 @@ define([ "dojo/_base/kernel",
     return dojo.declare([widget, templatedMixin, widgetsInTemplateMixin, eventMixin], {
         templateString: template,
         stages: null,
+        selected: 0,
         maxPerCol: 5,
         maxRow: 0,
         rowIndex: 0,
@@ -88,6 +89,8 @@ define([ "dojo/_base/kernel",
         },
 
         onEnter: function() {
+            var EVENTS = base.EVENTS, params = {stageId: this.stages[this.selected].id};
+            this.publish(EVENTS.WIDGETSELECT, ['delve/widget/battle', params]);
         },
 
         _isExceed: function() {

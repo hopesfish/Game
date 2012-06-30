@@ -5,7 +5,7 @@ define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, 
             this.watch();
         },
         publish: function(event, data) {
-            connect.publish(event, data);
+            data ? connect.publish(event, data) : connect.publish(event);
         },
         watch: function() {
             var that = this, EVENTS = base.EVENTS;
@@ -23,32 +23,37 @@ define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, 
                 connect.unsubscribe(handlers.pop());
             }
         },
-        _onSubscribe: function(event, data) {
+        _onSubscribe: function(event) {
+            var opts = {};
+            if (arguments.length > 1 && arguments[1] !== undefined) {
+                opts = Array.prototype.slice.call(arguments, 1);
+            }
+
             var EVENTS = base.EVENTS;
             switch (event) {
             case EVENTS.KEYUP:
-                this.onUp(data);
+                this.onUp(opts);
                 break;
             case EVENTS.KEYDOWN:
-                this.onDown(data);
+                this.onDown(opts);
                 break;
             case EVENTS.KEYLEFT:
-                this.onLeft(data);
+                this.onLeft(opts);
                 break;
             case EVENTS.KEYRIGHT:
-                this.onRight(data);
+                this.onRight(opts);
                 break;
             case EVENTS.KEYENTER:
-                this.onEnter(data);
+                this.onEnter(opts);
                 break;
             case EVENTS.KEYESC:
-                this.onEsc(data);
+                this.onEsc(opts);
                 break;
             case EVENTS.KEYBACKSPACE:
-                this.onBackspace(data);
+                this.onBackspace(opts);
                 break;
             default:
-                this.onSubscribe(event, data);
+                this.onSubscribe(event, opts);
                 break;
             }
         },
