@@ -10,10 +10,11 @@ define([ "dojo/_base/kernel",
          "dojo/text!./templates/CharacterList.html",
          "delve/base",
          "delve/event/EventMixin",
-         "delve/resource/Character",
+         "delve/resource/CharacterFactory",
          "dojo/NodeList-dom" ], function(dojo, declare, array, domAttr, domConstruct, query, widget, templatedMixin, widgetsInTemplateMixin, template, base, eventMixin){
     // declare our custom class
     return dojo.declare([widget, templatedMixin, widgetsInTemplateMixin, eventMixin], {
+        _watch: false,
         selected: 0,
         instances: [],
         templateString: template,
@@ -21,7 +22,6 @@ define([ "dojo/_base/kernel",
             this.inherited(arguments);
             this.init(); // 创建角色实体
             this.render(); // 绘制角色
-            this.unwatch(); // 等等战斗画面激活,不监听任何事件
             this.select();
         },
         init: function() {
@@ -29,10 +29,9 @@ define([ "dojo/_base/kernel",
                 var count = character.count;
                 character.instances = [];
                 while(count !=0 ) {
-                    character.instances.push(delve.resource.Character.initialize(character.type));
+                    character.instances.push(delve.resource.CharacterFactory.initialize(character.type));
                     count--;
                 }
-                console.info(character.instances);
             });
         },
         render: function() {
@@ -44,15 +43,15 @@ define([ "dojo/_base/kernel",
             });
         },
         enable: function() {
-            this.watch();
-        },
-        disable: function() {
-            this.unwatch();
+            this.inherited(arguments);
+            this.select();
         },
         select: function() {
-            // send character instance
+            var EVENTS = base.EVENTS, instances = this.characters[this.selected].instances, instance;
+            instance = instances[instances.length - 1];
             query('div.selected', this.container).removeClass("selected");
             query('div:nth-child(' + (this.selected + 1) +')', this.container).addClass("selected");
+            this.publish(EVENTS.CHARACTER_INSTANCE_SELECT, [instance]);
         },
         onLeft: function() {
             var len = this.characters.length;

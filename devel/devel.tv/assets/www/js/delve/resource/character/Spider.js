@@ -1,5 +1,5 @@
 define([ "delve/resource/character/Daemon"], function(deamon){
-    var module = dojo.declare("delve.resource.Spider", [deamon], {
+    var module = dojo.declare([deamon], {
         name: '蜘蛛',
         hp: 1,
         skills: [{

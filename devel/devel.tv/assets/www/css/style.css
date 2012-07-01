@@ -153,7 +153,7 @@ html, body {margin:0; height:100%; background-color:#000;}
 .delve .characterZone.selected .character.spider.actived {
    background-image:url(./images/spider.jpg);
 }
-.delve .info {
+.delve .characterZone .info {
     float:left;
     margin-top: 10px;
     width: 850px;
@@ -168,33 +168,37 @@ html, body {margin:0; height:100%; background-color:#000;}
     border: 5px solid #000;
     opacity: 0.7;
     text-shadow: 0px 0px 11px #555;
+    display: none;
 }
-.delve .info .title{
+.delve .characterZone.selected .info {
+    display: block;
+}
+.delve .characterZone .info .title{
     float:left;
     width: 15%;
     text-indent: 40px;
 }
-.delve .info .bloods{
+.delve .characterZone .info .bloods{
     float:left;
     width: 30%;
 }
-.delve .info .blood{
+.delve .characterZone .info .blood{
     background:url(./images/blood.png) 0px 5px no-repeat;
     padding:0px 12px;
     margin:0px 3px;
 }
-.delve .info .skills{
+.delve .characterZone .info .skills{
     float:left;
     width: 30%;
 }
-.delve .info .skill{
+.delve .characterZone .info .skill{
     padding:0px 12px;
     margin:0px 3px;
 }
-.delve .info .skill.attack{
+.delve .characterZone .info .skill.attack{
     background:url(./images/attack.png) 0px 4px no-repeat;
 }
-.delve .info .detail{
+.delve .characterZone .info .detail{
     clear: both;
     width:90%;
     margin:auto;

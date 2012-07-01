@@ -1,5 +1,6 @@
 define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, connect, base){
     return dojo.declare([], {
+        _watch: true,
         postCreate: function() {
             this.inherited(arguments);
             this.watch();
@@ -7,7 +8,17 @@ define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, 
         publish: function(event, data) {
             data ? connect.publish(event, data) : connect.publish(event);
         },
+        enable: function() {
+            this._watch = true;
+            this.unwatch();
+            this.watch();
+        },
+        disable: function() {
+            this._watch = false;
+            this.unwatch();
+        },
         watch: function() {
+            if (!this._watch) return;
             var that = this, EVENTS = base.EVENTS;
             // 为每个子类创建自己的handlers
             if (typeof this.handlers === 'undefined') {
@@ -19,8 +30,10 @@ define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, 
         },
         unwatch: function() {
             var that = this, handlers = this.handlers;
-            while(handlers.length > 0) {
-                connect.unsubscribe(handlers.pop());
+            if (handlers) {
+                while(handlers.length > 0) {
+                    connect.unsubscribe(handlers.pop());
+                }
             }
         },
         _onSubscribe: function(event) {

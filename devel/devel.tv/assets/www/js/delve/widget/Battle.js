@@ -46,18 +46,18 @@ define([ "dojo/_base/kernel",
             var selected = this.selected;
             if (selected === 'daemon') {
                 this.selected = 'hero';
-                this.heroList.enable();
-                this.heroInfo.enable();
+                this.daemonInfo.disable(); // disable first
                 this.daemonList.disable();
-                this.daemonInfo.disable();
+                this.heroInfo.enable(); // enable info first
+                this.heroList.enable();
                 domClass.remove(this.daemonZone, "selected");
                 domClass.add(this.heroZone, "selected");
             } else {
                 this.selected = 'daemon';
-                this.heroList.disable();
                 this.heroInfo.disable();
-                this.daemonList.enable();
+                this.heroList.disable();
                 this.daemonInfo.enable();
+                this.daemonList.enable();
                 domClass.add(this.daemonZone, "selected");
                 domClass.remove(this.heroZone, "selected");
             }

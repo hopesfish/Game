@@ -11,5 +11,8 @@ define([], function(){
     module.EVENTS.KEYESC = "/delve/event/keyesc";
 
     module.EVENTS.WIDGETSELECT = "/delve/widget/select";
+
+    module.EVENTS.CHARACTER_INSTANCE_SELECT = "/delve/character/instance/select";
+    
     return module;
 });

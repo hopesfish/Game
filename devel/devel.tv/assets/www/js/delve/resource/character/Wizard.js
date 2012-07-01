@@ -1,5 +1,5 @@
 define([ "delve/resource/character/Hero"], function(hero){
-    var module = dojo.declare("delve.resource.Wizard", [hero], {
+    var module = dojo.declare([hero], {
         name: '法师',
         hp: 3,
         skills: [{
