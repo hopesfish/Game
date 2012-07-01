@@ -46,6 +46,9 @@ define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, 
             case EVENTS.KEYENTER:
                 this.onEnter(opts);
                 break;
+            case EVENTS.KEYSPACE:
+                this.onSpace(opts);
+                break;
             case EVENTS.KEYESC:
                 this.onEsc(opts);
                 break;
@@ -62,6 +65,7 @@ define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, 
         onLeft: function() {},
         onRight: function() {},
         onEnter: function() {},
+        onSpace: function() {},
         onEsc: function() {},
         onSubscribe: function() {}
     });

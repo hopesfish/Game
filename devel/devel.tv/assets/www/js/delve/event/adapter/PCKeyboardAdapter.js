@@ -19,6 +19,12 @@ define([ "dojo/_base/kernel", "dojo/_base/connect", "delve/base", 'dojo/_base/ev
                     case dojo.keys.ENTER:
                         connect.publish(EVENTS.KEYENTER);
                         break;
+                    case dojo.keys.SPACE:
+                        connect.publish(EVENTS.KEYSPACE);
+                        break;
+                    case ' ':
+                        connect.publish(EVENTS.KEYSPACE);
+                        break;
                     case dojo.keys.BACKSPACE:
                         connect.publish(EVENTS.KEYBACKSPACE);
                         break;

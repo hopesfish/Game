@@ -39,10 +39,7 @@ define([ "dojo/_base/kernel",
             this.inherited(arguments);
             this.toggle();
         },
-        onUp: function() {
-            this.toggle();
-        },
-        onDown: function() {
+        onSpace: function() {
             this.toggle();
         },
         toggle: function() {

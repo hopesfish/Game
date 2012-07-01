@@ -6,6 +6,7 @@ define([], function(){
     module.EVENTS.KEYLEFT = "/delve/event/keyleft";
     module.EVENTS.KEYRIGHT = "/delve/event/keyright";
     module.EVENTS.KEYENTER = "/delve/event/keyenter";
+    module.EVENTS.KEYSPACE = "/delve/event/keyspace";
     module.EVENTS.KEYBACKSPACE = "/delve/event/keybackspace";
     module.EVENTS.KEYESC = "/delve/event/keyesc";
 
