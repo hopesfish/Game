@@ -10,21 +10,38 @@ define([ "dojo/_base/kernel",
          "dojo/text!./templates/CharacterList.html",
          "delve/base",
          "delve/event/EventMixin",
+         "delve/resource/Character",
          "dojo/NodeList-dom" ], function(dojo, declare, array, domAttr, domConstruct, query, widget, templatedMixin, widgetsInTemplateMixin, template, base, eventMixin){
     // declare our custom class
     return dojo.declare([widget, templatedMixin, widgetsInTemplateMixin, eventMixin], {
         selected: 0,
+        instances: [],
         templateString: template,
         postCreate: function() {
-            var that = this;
             this.inherited(arguments);
+            this.init(); // 创建角色实体
+            this.render(); // 绘制角色
+            this.unwatch(); // 等等战斗画面激活,不监听任何事件
+            this.select();
+        },
+        init: function() {
+            array.forEach(this.characters, function(character) {
+                var count = character.count;
+                character.instances = [];
+                while(count !=0 ) {
+                    character.instances.push(delve.resource.Character.initialize(character.type));
+                    count--;
+                }
+                console.info(character.instances);
+            });
+        },
+        render: function() {
+            var that = this;
             array.forEach(this.characters, function(character) {
                 domConstruct.place(
                         '<div class="character actived ' + character.type.toLowerCase() + '"></div>',
                         that.container, 'last');
             });
-            this.unwatch(); // 需要战斗画面激活
-            this.select();
         },
         enable: function() {
             this.watch();
@@ -33,6 +50,7 @@ define([ "dojo/_base/kernel",
             this.unwatch();
         },
         select: function() {
+            // send character instance
             query('div.selected', this.container).removeClass("selected");
             query('div:nth-child(' + (this.selected + 1) +')', this.container).addClass("selected");
         },

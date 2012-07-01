@@ -14,6 +14,8 @@ define([ "dojo/_base/kernel",
         templateString: template,
         postCreate: function() {
             this.inherited(arguments);
+            // watch character info
+            // watch character skil switch event
         },
         enable: function() {
             this.watch();
