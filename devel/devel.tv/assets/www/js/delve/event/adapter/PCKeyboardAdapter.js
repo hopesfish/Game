@@ -28,13 +28,13 @@ define([ "dojo/_base/kernel", "dojo/_base/connect", "delve/base", 'dojo/_base/ev
                     case dojo.keys.BACKSPACE:
                         connect.publish(EVENTS.KEYBACKSPACE);
                         break;
-                    case dojo.keys.ESC:
+                    case dojo.keys.ESCAPE:
                         connect.publish(EVENTS.KEYESC);
                         break;
                     default:
                         break;
                 }
-                if (e.charOrCode !== dojo.keys.F12 && e.charOrCode !== dojo.keys.F5) {
+                if (e.charOrCode != dojo.keys.F12 && e.charOrCode != dojo.keys.F5) {
                     dojo.stopEvent(e);
                 }
             });

@@ -22,6 +22,9 @@ define([ "dojo/_base/kernel",
         postCreate: function() {
             var daemonList, daemonInfo, heroList, heroInfo;
 
+            this.inherited(arguments);
+
+            
             this.title.innerHTML = this.stage.getFullName();
 
             daemonList = this.daemonList = new CharacterList({characters: this.stage.getDaemonDefinition()});
@@ -36,7 +39,6 @@ define([ "dojo/_base/kernel",
             heroInfo = this.heroInfo = new CharacterInfo();
             heroInfo.placeAt(this.heroZone, 'last');
 
-            this.inherited(arguments);
             this.toggle();
         },
         onSpace: function() {

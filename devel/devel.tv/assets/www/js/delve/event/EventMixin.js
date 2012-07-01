@@ -1,6 +1,6 @@
 define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, connect, base){
     return dojo.declare([], {
-        _watch: true,
+        _watch : true,
         postCreate: function() {
             this.inherited(arguments);
             this.watch();
@@ -15,10 +15,8 @@ define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, 
         },
         disable: function() {
             this._watch = false;
-            this.unwatch();
         },
         watch: function() {
-            if (!this._watch) return;
             var that = this, EVENTS = base.EVENTS;
             // 为每个子类创建自己的handlers
             if (typeof this.handlers === 'undefined') {
@@ -37,6 +35,7 @@ define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, 
             }
         },
         _onSubscribe: function(event) {
+            if (!this._watch) { return; }
             var opts = {};
             if (arguments.length > 1 && arguments[1] !== undefined) {
                 opts = Array.prototype.slice.call(arguments, 1);
@@ -80,6 +79,7 @@ define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, 
         onEnter: function() {},
         onSpace: function() {},
         onEsc: function() {},
+        onBackspace: function() {},
         onSubscribe: function() {}
     });
 });

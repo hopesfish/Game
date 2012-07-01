@@ -17,8 +17,6 @@ define([ "dojo/_base/kernel",
         skillIdx: 0,
         postCreate: function() {
             this.inherited(arguments);
-            // watch character info
-            // watch character skil switch event
         },
         onSubscribe: function(event, data) {
             var EVENTS = base.EVENTS, character = data[0];
