@@ -2,7 +2,7 @@ html, body {margin:0; height:100%; background-color:#000;}
 .delve {position: relative;}
 .delve .en { font-family:Georgia,Serif; }
 .delve .cn { font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu; }
-.delve { margin:auto; width:1800px; height:900px; background-image:url(./images/background.jpg); background-position:0px -40px;}
+.delve { margin:auto; width:1800px; height:1000px; background-image:url(./images/background.jpg); background-position:0px -40px;}
 .delve h1.title, .delve h2.title {
     display:block;
     margin: auto;
@@ -93,6 +93,10 @@ html, body {margin:0; height:100%; background-color:#000;}
     left: 80px;
     width: 90%;
     height: 200px;
+    opacity: 0.6;
+}
+.delve .characterZone.selected {
+    opacity: 1;
 }
 .delve .characterZone.heroZone {
     bottom: 50px;
@@ -110,39 +114,43 @@ html, body {margin:0; height:100%; background-color:#000;}
     width: 148px;
     height: 100%;
     margin: 10px;
-    border: 5px solid #333;
+    border: 5px solid #666;
     -webkit-border-radius:15px;
     -moz-border-radius: 15px;
-    opacity: 0.8;
+    opacity: 0.6;
+}
+.delve .characterZone.selected .character.selected {
+    border: 5px solid #333;
+    opacity: 1;
 }
 .delve .character.warrior {
     background-image:url(./images/warrior_gray.jpg);
 }
-.delve .character.warrior.actived {
+.delve .characterZone.selected .character.warrior.actived {
    background-image:url(./images/warrior.jpg);
 }
 .delve .character.rogue {
     background-image:url(./images/rogue_gray.jpg);
 }
-.delve .character.rogue.actived {
+.delve .characterZone.selected .character.rogue.actived {
    background-image:url(./images/rogue.jpg);
 }
 .delve .character.wizard {
     background-image:url(./images/wizard_gray.jpg);
 }
-.delve .character.wizard.actived {
+.delve .characterZone.selected .character.wizard.actived {
    background-image:url(./images/wizard.jpg);
 }
 .delve .character.cleric {
     background-image:url(./images/cleric_gray.jpg);
 }
-.delve .character.cleric.actived {
+.delve .characterZone.selected .character.cleric.actived {
    background-image:url(./images/cleric.jpg);
 }
 .delve .character.spider {
     background-image:url(./images/spider_gray.jpg);
 }
-.delve .character.spider.actived {
+.delve .characterZone.selected .character.spider.actived {
    background-image:url(./images/spider.jpg);
 }
 .delve .info {
