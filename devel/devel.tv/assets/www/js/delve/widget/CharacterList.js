@@ -68,6 +68,6 @@ define([ "dojo/_base/kernel",
                 this.selected = 0;
             }
             this.select();
-        },
+        }
     });
 });
