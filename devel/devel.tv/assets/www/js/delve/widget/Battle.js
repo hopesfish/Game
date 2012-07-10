@@ -24,6 +24,7 @@ define([ "dojo/_base/kernel",
 
             this.inherited(arguments);
 
+            
             this.title.innerHTML = this.stage.getFullName();
 
             daemonList = this.daemonList = new CharacterList({characters: this.stage.getDaemonDefinition()});

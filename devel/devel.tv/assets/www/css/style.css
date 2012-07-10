@@ -18,12 +18,15 @@ html, body {margin:0; height:100%; background-color:#000;}
     position:relative;
     text-shadow: 0px 0px 11px #555;
 }
-.delve .menus {
+.delve .menus, .delve .settings{
     margin: auto;
     width: 400px;
     margin-top: 7%;
 }
-.delve .menu {
+.delve .settings {
+   width: 690px;
+}
+.delve .menu, .delve .setting {
     margin: auto;
     margin-top: 2em;
     width: 100%;
@@ -40,12 +43,47 @@ html, body {margin:0; height:100%; background-color:#000;}
     cursor:pointer;
     text-shadow: 0px 0px 11px #555;
 }
-.delve .menu.selected {
+.delve .setting div {
+    float:left;	
+}
+.delve .setting .label {
+    float:left;
+    width: 200px;
+    text-align:center;
+}
+.delve .setting .slider {
+   position: relative;
+   height: 5px;
+   line-height: 5px;
+   width: 350px;
+   margin-top:1em;
+   background-color: #fff;
+   opacity: 0.8;    
+   -webkit-border-radius:2px;
+   -moz-border-radius: 2px;
+}
+.delve .setting .cursor{
+   position: absolute;
+   top: -15px;
+   background-color:#fff;
+   width: 30px;
+   height: 30px;
+   -webkit-border-radius:10px;
+   -moz-border-radius: 10px;
+}
+.delve .setting .volume {
+    padding-left: 0.5em;
+}
+.delve .menu.selected, .delve .setting.selected {
     color:#fff;
     font-size:2em;
     background-color:#000;
     opacity: 0.8;
 }
+.delve .setting.selected .cursor {
+    background-color:red;
+}
+
 .delve .stages {
     margin: auto;
     width: 50%;
