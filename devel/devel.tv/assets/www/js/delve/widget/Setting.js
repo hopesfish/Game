@@ -13,17 +13,42 @@ define([ "dojo/_base/kernel",
     return dojo.declare([widget, templatedMixin, widgetsInTemplateMixin, eventMixin], {
         templateString: template,
         selected: 0,
+        selectedNode: null,
         count: 0,
-        step: 20,
+        step: 10,
+        bgVolume : 0,
 
         postCreate: function() {
             this.inherited(arguments);
             this.count = query(".setting", this.settingContainer).length;
+            this.bgVolume = base.SETTING.bgVolume;
+            this.select();
+            this.adjust(this.bgVolume);
         },
 
+        adjust: function(volume) {
+            var selectedNode = this.selectedNode, type, cursorNode, volumeNode;
+
+            domAttr.set(selectedNode, 'data-delve-volume', volume);
+            cursorNode = query('.cursor', selectedNode)[0];
+            domStyle.set(cursorNode, 'left', volume + '%');
+            volumeNode = query('.volume', selectedNode)[0];
+            volumeNode.innerHTML = volume + '%';
+
+            type = domAttr.get(selectedNode, 'data-delve-volume-type');
+            switch (type) {
+                case 'bgVolume':
+                    this.bgVolume = volume;
+                    dojo.byId('bgAudio').volume = volume / 100;
+                break;
+                default:
+            }
+        },
+        
         select: function() {
             query('div.selected', this.settingContainer).removeClass("selected");
             query('div.setting:nth-child(' + (this.selected + 1) +')', this.settingContainer).addClass("selected");
+            this.selectedNode = query('div.selected', this.settingContainer)[0];
         },
 
         onUp: function() {
@@ -39,29 +64,21 @@ define([ "dojo/_base/kernel",
         },
 
         onLeft: function() {
-            var volume = 0, selectNode = query('div.selected', this.settingContainer)[0],
+            var volume = 0, selectedNode = this.selectedNode,
                 cursorNode, volumeNode;
-            volume = parseInt(domAttr.get(selectNode, 'data-delve-volume'), 10);
+            volume = parseInt(domAttr.get(selectedNode, 'data-delve-volume'), 10);
             if (volume === 0) { return; }
             volume -= this.step;
-            domAttr.set(selectNode, 'data-delve-volume', volume);
-            cursorNode = query('.cursor', selectNode)[0];
-            domStyle.set(cursorNode, 'left', volume + '%');
-            volumeNode = query('.volume', selectNode)[0];
-            volumeNode.innerHTML = volume + '%';
+            this.adjust(volume);
         },
 
         onRight: function() {
-            var volume = 0, selectNode = query('div.selected', this.settingContainer)[0],
+            var volume = 0, selectedNode = this.selectedNode,
                 cursorNode, volumeNode;
-            volume = parseInt(domAttr.get(selectNode, 'data-delve-volume'), 10);
+            volume = parseInt(domAttr.get(selectedNode, 'data-delve-volume'), 10);
             if (volume === 100) { return; }
             volume += this.step;
-            domAttr.set(selectNode, 'data-delve-volume', volume);
-            cursorNode = query('.cursor', selectNode)[0];
-            domStyle.set(cursorNode, 'left', volume + '%');
-            volumeNode = query('.volume', selectNode)[0];
-            volumeNode.innerHTML = volume + '%';
+            this.adjust(volume);
         }
     });
 });

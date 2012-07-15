@@ -13,6 +13,9 @@ define([], function(){
     module.EVENTS.WIDGETSELECT = "/delve/widget/select";
 
     module.EVENTS.CHARACTER_INSTANCE_SELECT = "/delve/character/instance/select";
-    
+
+    module.SETTING = {
+        bgVolume: 60
+    };
     return module;
 });
