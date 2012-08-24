@@ -1,6 +1,6 @@
 define([ "dojo/_base/array",
          "delve/resource/Resource"], function(array, resource){
-    var module = dojo.declare("delve.resource.Stage", [resource], {
+    var stages, module = dojo.declare("delve.resource.Stage", [resource], {
         save: function() {
             console.info('save');
         },
@@ -16,6 +16,43 @@ define([ "dojo/_base/array",
                     function(character) { return !character.daemon; });
         }
     });
+    stages = [{
+        id: 1,
+        name: '初出茅庐',
+        characters: [{
+            type: 'Spider',
+            count: 1,
+            daemon: true
+        }, {
+            type: 'Warrior',
+            count: 1,
+            daemon: false
+        }]
+    },{
+        id: 2,
+        name: '小试身手',
+        characters: [{
+            type: 'Spider',
+            count: 1,
+            daemon: true
+        }, {
+            type: 'Warrior',
+            count: 1,
+            daemon: false
+        }, {
+            type: 'Rogue',
+            count: 1,
+            daemon: false
+        }, {
+            type: 'Wizard',
+            count: 1,
+            daemon: false
+        }, {
+            type: 'Cleric',
+            count: 1,
+            daemon: false
+        }]
+    }];
     delve.resource.Stage.all = function() {
         return [{
             id:1,
@@ -49,32 +86,8 @@ define([ "dojo/_base/array",
             locked: true
         }];
     }
-    delve.resource.Stage.get = function() {
-        return new delve.resource.Stage({
-            id: 1,
-            name: '小试身手',
-            characters: [{
-                type: 'Spider',
-                count: 1,
-                daemon: true
-            }, {
-                type: 'Warrior',
-                count: 1,
-                daemon: false
-            }, {
-                type: 'Rogue',
-                count: 1,
-                daemon: false
-            }, {
-                type: 'Wizard',
-                count: 1,
-                daemon: false
-            }, {
-                type: 'Cleric',
-                count: 1,
-                daemon: false
-            }]
-        });
+    delve.resource.Stage.get = function(id) {
+        return new delve.resource.Stage(stages[id-1]);
     }
     return module;
 });

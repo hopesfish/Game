@@ -12,5 +12,14 @@ define(["delve/resource/Resource"], function(resource){
         'WIZARD': "Wizard",
         'CLERIC': "Cleric"
     };
+    delve.resource.Character.match = function(skills, dices) {
+        var len = skills.length;
+        for (var i=0; i<len; i++) {
+            if (skills[i].match(dices)) {
+                return true;
+            }
+        }
+        return false;
+    };
     return module;
 });

@@ -27,5 +27,27 @@ define(["delve/resource/character/Spider",
         }
         return {};
     };
+    delve.resource.CharacterFactory.getClazz = function(type) {
+        switch(type) {
+        case delve.resource.Character.TYPE.SPIDER:
+            return Spider;
+        break;
+        case delve.resource.Character.TYPE.WARRIOR:
+            return Warrior;
+        break;
+        case delve.resource.Character.TYPE.ROGUE:
+            return Rogue;
+        break;
+        case delve.resource.Character.TYPE.WIZARD:
+            return Wizard;
+        break; 
+        case delve.resource.Character.TYPE.CLERIC:
+            return Cleric;
+        break;
+        default:
+            throw new Error('undefined character');
+        }
+        return {};
+    };
     return module;
 });

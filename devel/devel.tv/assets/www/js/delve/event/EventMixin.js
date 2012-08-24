@@ -5,6 +5,10 @@ define([ "dojo/_base/lang", "dojo/_base/connect", "delve/base"], function(lang, 
             this.inherited(arguments);
             this.watch();
         },
+        destroy: function() {
+            this.unwatch();
+            this.inherited(arguments);
+        },
         publish: function(event, data) {
             data ? connect.publish(event, data) : connect.publish(event);
         },

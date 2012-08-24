@@ -1,0 +1,23 @@
+<html>
+<head>
+</head>
+<body>
+<script type="text/javascript"
+  src="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dojo/dojo.js"
+  data-dojo-config="async: true, packages: [
+    { name: 'jquery', location: 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1', 
+      main: 'jquery' }
+    ]">
+</script>
+ 
+<script type="text/javascript">
+  define.amd.jQuery = true;
+  require(["jquery", "dojo/query", "dojo/NodeList-dom"], function(jquery, $){
+    $("#testA").style("visibility", "visible");
+    jquery("#testB").css("visibility", "hidden");
+  });
+</script>
+</body>
+<div id="testA">testA</div>
+<div id="testB">testB</div>
+</html>

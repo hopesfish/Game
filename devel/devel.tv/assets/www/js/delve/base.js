@@ -12,10 +12,21 @@ define([], function(){
 
     module.EVENTS.WIDGETSELECT = "/delve/widget/select";
 
+    module.EVENTS.CHARACTER_LIST_REFRESH = "/delve/character/list/refresh";
+    module.EVENTS.CHARACTER_LIST_REVERSE = "/delve/character/list/reverse";
+    module.EVENTS.CHARACTER_SOURCE_REQUEST = "/delve/character/source/request";
+    module.EVENTS.CHARACTER_SOURCE_RESPONSE = "/delve/character/source/response";
+    module.EVENTS.CHARACTER_TARGET_REQUEST = "/delve/character/target/request";
+    module.EVENTS.CHARACTER_TARGET_RESPONSE = "/delve/character/target/response";
     module.EVENTS.CHARACTER_INSTANCE_SELECT = "/delve/character/instance/select";
+
+    module.EVENTS.DICE_REQUEST = "/delve/dice/request";
+    module.EVENTS.DICE_RESPONSE = "/delve/dice/response";
 
     module.SETTING = {
         bgVolume: 60
     };
+
+    module.autoplay = true;
     return module;
 });

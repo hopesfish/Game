@@ -11,7 +11,9 @@ define([ "dojo/_base/kernel",
          "delve/resource/Stage",
          "delve/widget/CharacterList",
          "delve/widget/CharacterInfo",
-         "dojo/NodeList-dom" ], function(dojo, declare, domAttr, domClass, widget, templatedMixin, widgetsInTemplateMixin, template, base, eventMixin, stage, CharacterList, CharacterInfo){
+         "delve/widget/DicePicker",
+         "delve/engine/Engine",
+         "dojo/NodeList-dom" ], function(dojo, declare, domAttr, domClass, widget, templatedMixin, widgetsInTemplateMixin, template, base, eventMixin, stage, CharacterList, CharacterInfo, DicePicker, Engine){
     // declare our custom class
     return dojo.declare([widget, templatedMixin, widgetsInTemplateMixin, eventMixin], {
         templateString: template,
@@ -20,11 +22,10 @@ define([ "dojo/_base/kernel",
             this.stage = delve.resource.Stage.get(this.stageId);
         },
         postCreate: function() {
-            var daemonList, daemonInfo, heroList, heroInfo;
+            var daemonList, daemonInfo, heroList, heroInfo, dicePicker, engine;
 
             this.inherited(arguments);
 
-            
             this.title.innerHTML = this.stage.getFullName();
 
             daemonList = this.daemonList = new CharacterList({characters: this.stage.getDaemonDefinition()});
@@ -40,18 +41,27 @@ define([ "dojo/_base/kernel",
             heroInfo.placeAt(this.heroZone, 'last');
 
             this.toggle();
+
+            dicePicker = this.dicePicker = new DicePicker();
+            dicePicker.placeAt(this.domNode, "last");
+
+            engine = this.engine = Engine({
+                daemons: daemonList.getCharacters(),
+                heros: heroList.getCharacters()
+            });
+            engine.init();
         },
         onSpace: function() {
             this.toggle();
         },
-        toggle: function() {
-            var selected = this.selected;
+        toggle: function(opts) {
+            var selected = this.selected, opts = opts || {isFilter: true};
             if (selected === 'daemon') {
                 this.selected = 'hero';
                 this.daemonInfo.disable(); // disable first
                 this.daemonList.disable();
                 this.heroInfo.enable(); // enable info first
-                this.heroList.enable();
+                this.heroList.enable(opts);
                 domClass.remove(this.daemonZone, "selected");
                 domClass.add(this.heroZone, "selected");
             } else {
@@ -59,9 +69,24 @@ define([ "dojo/_base/kernel",
                 this.heroInfo.disable();
                 this.heroList.disable();
                 this.daemonInfo.enable();
-                this.daemonList.enable();
+                this.daemonList.enable(opts);
                 domClass.add(this.daemonZone, "selected");
                 domClass.remove(this.heroZone, "selected");
+            }
+        },
+        destroy: function() {
+            this.engine.destroy();
+            this.daemonList.destroy();
+            this.daemonInfo.destroy();
+            this.heroList.destroy();
+            this.heroInfo.destroy();
+            this.dicePicker.destroy();
+            this.inherited(arguments);
+        },
+        onSubscribe: function(event, data) {
+            var EVENTS = base.EVENTS;
+            if (event === EVENTS.CHARACTER_LIST_REVERSE) {
+                this.toggle({isFilter: false});
             }
         }
     });
