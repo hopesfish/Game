@@ -4,17 +4,20 @@ define(["dojo/_base/kernel",
         "delve/event/EventMixin",
         "delve/base"], function(dojo, delcare, array, eventMixin, base){
     var STEPS = {
-        DIC_REQ: 'DIC_REQ',
-        SEL_SRC: 'SEL_SRC',
-        SEL_REV: 'SEL_REV',
-        SEL_TAG: 'SEL_TAG',
-        ACT_EXE: 'ACT_EXE'
-    }, REVERSE_COUNT = 0, EVENTS = base.EVENTS;
+        DIC_REQ: 'DIC_REQ', // 开始摇骰
+        SEL_SRC: 'SEL_SRC', // 选择源角色
+        SEL_REV: 'SEL_REV', // 阵营焦点切换
+        SEL_TAG: 'SEL_TAG', // 选择目标角色
+        ACT_EXE: 'ACT_EXE'  // 执行动作
+    }, REVERSE_COUNT = 0, EVENTS = base.EVENTS, heroDiceRule, damonDiceRule;
+
     var module = dojo.declare("delve.engine.Engine", [eventMixin], {
         daemons: null,
         heros: null,
-        attack: true, // 英雄是否进攻
-        step: STEPS.DIC_REQ, // 当前step
+        isHeroAttack: true, // 英雄是否是进攻方
+        isWin: false, // 英雄是否赢了
+        isLost: false, // 英雄是否败了
+        step: STEPS.DIC_REQ, // 当前步骤
         source: null,
         target: null,
         constructor: function() {
@@ -43,29 +46,45 @@ define(["dojo/_base/kernel",
             clearInterval(this.interval);
             this.unwatch();
         },
+        reverse: function() {
+            this.publish(EVENTS.MESSAGE, ['没有可用角色，切换阵营!']);
+            this.isHeroAttack = !this.isHeroAttack;
+            this.step = STEPS.DIC_REQ;
+            REVERSE_COUNT = 0;
+            this.toggleBattle();
+        },
         next: function() {
             if (!base.autoplay) { return; }
+            if (this.isWin || this.isLost) {
+                this.publish(EVENTS.MESSAGE, ['战斗结束!']);
+                return;
+            }
             console.info(this.step);
             switch(this.step) {
                 case STEPS.DIC_REQ:
+                    this.publish(EVENTS.MESSAGE, ['准备投掷骰子!']);
                     this.step = STEPS.SEL_SRC;
                     this.sendDiceRequest();
                 break;
                 case STEPS.SEL_SRC:
+                    this.publish(EVENTS.MESSAGE, ['投掷结果:'+ this.dices + '<br>请选择可用角色!']);
                     this.step = STEPS.SEL_REV;
                     this.selectSourceCharacter();
                 break;
                 case STEPS.SEL_REV:
                     switch (REVERSE_COUNT) {
-                    case 0:
+                    case 0: // 选择目标
                         this.step = STEPS.SEL_TAG;
                         REVERSE_COUNT += 1;
+                        this.next();
                         break;
-                    case 1:
+                    case 1: // 执行技能
                         this.step = STEPS.ACT_EXE;
                         REVERSE_COUNT += 1;
+                        this.next();
                         break;
-                    case 2:
+                    case 2: // 攻击阵营转换
+                        this.publish(EVENTS.MESSAGE, ['轮换攻击方!']);
                         this.step = STEPS.DIC_REQ;
                         REVERSE_COUNT = 0;
                         break;
@@ -73,39 +92,64 @@ define(["dojo/_base/kernel",
                     this.toggleBattle();
                 break;
                 case STEPS.SEL_TAG:
-                    this.step = STEPS.SEL_REV;
+                    this.publish(EVENTS.MESSAGE, ['选择目标!']);
                     this.selectTargetCharacter();
+                    this.step = STEPS.SEL_REV;
                 break;
                 case STEPS.ACT_EXE:
-                    this.step = STEPS.SEL_REV;
+                    this.publish(EVENTS.MESSAGE, ['攻击!']);
                     this.execution();
+                    this.isHeroAttack = !this.isHeroAttack;
+                    this.step = STEPS.SEL_REV;
                 break;
                 default:
                 break;
             }
         },
+        getLiveCount: function(characters) {
+            var count = 0;
+            array.forEach(characters, function(character) {
+                array.forEach(character.instances, function(inst) {
+                    if (!inst.isDead()) {
+                        count += 1;
+                    }
+                });
+            });
+            return count;
+        },
         sendDiceRequest: function() {
-            this.publish(EVENTS.DICE_REQUEST);
+            this.publish(EVENTS.DICE_REQUEST, [{
+                isHeroAttack: this.isHeroAttack,
+                daemonCount: this.getLiveCount(this.daemons)
+            }]);
         },
         filterCharacters: function() {
-            var that = this, attack = this.attack, characters, found = 0;
+            var isHeroAttack = this.isHeroAttack, characters, found = start = 0;
 
-            characters =  attack === true ? this.heros: this.daemons;
+            characters =  isHeroAttack === true ? this.heros: this.daemons;
 
             array.forEach(characters, function(character) {
-                if (character.clazz.match) {
-                    if (character.clazz.match(character.clazz.skills, that.dices)) {
-                        found++;
-                        character.enabled = true;
-                    } else {
-                        character.enabled = false;
-                    }
+                if (!character.clazz.match) { return; }
+                var count = this.getLiveCount([character]),
+                    skill = character.clazz.match(character.clazz.skills, this.dices, start, count);
+                if (skill != null && count > 0) {
+                    found += 1;
+                    character.enabled = true;
+                    character.start = start;
+                    character.skill = skill;
+                } else {
+                    character.enabled = false;
+                    delete character.start;
+                    delete character.skill;
                 }
-            });
+                // 需判断怪兽每个instance对应那个dice
+                isHeroAttack ? start = 0: start += count;
+            }, this);
+
             if (found > 0) { 
                 this.publish(EVENTS.CHARACTER_LIST_REFRESH);
-            } else {
-                this.step = STEPS.DIC_REQ;
+            } else { // 攻击阵营转换
+                this.reverse();
             }
         },
         selectSourceCharacter: function() {
@@ -119,10 +163,38 @@ define(["dojo/_base/kernel",
         },
         execution: function() {
             console.info('execute');
-            console.info(this.source);
-            console.info(this.target);
-            this.attack = !this.attack;
-            this.step = STEPS.SEL_REV;
+            delve.resource.Character.execute(this.source, this.target, this.dices);
+            console.info('hero');
+            array.forEach(this.source.instances, function(inst) {
+                console.info(inst.name + ' ' + inst.hp);
+            });
+            console.info('daemo');
+            array.forEach(this.target.instances, function(inst) {
+                console.info(inst.name + ' ' + inst.hp);
+            });
+            this.check();
+            this.publish(EVENTS.CHARACTER_LIST_REFRESH);
+        },
+        check: function() {
+            var count = 0;
+            array.forEach(this.daemons, function(damon) {
+                array.forEach(damon.instances, function(inst) {
+                    if (!inst.isDead()) {
+                        count += 1;
+                    }
+                });
+            });
+            if (count == 0) { this.isWin = true; }
+
+            count = 0;
+            array.forEach(this.heros, function(hero) {
+                array.forEach(hero.instances, function(inst) {
+                    if (!inst.isDead()) {
+                        count += 1;
+                    }
+                });
+            });
+            if (count == 0) { this.isLost = true; }
         }
     });
     return module;

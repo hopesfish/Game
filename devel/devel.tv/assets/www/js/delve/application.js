@@ -9,4 +9,5 @@ require([ "delve/widget/WidgetManager",
     var manager = new WidgetManager();
     manager.watch();
     manager.select(Menu);
+
 });

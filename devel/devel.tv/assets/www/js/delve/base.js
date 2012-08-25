@@ -12,6 +12,8 @@ define([], function(){
 
     module.EVENTS.WIDGETSELECT = "/delve/widget/select";
 
+    module.EVENTS.MESSAGE = "/delve/message";
+
     module.EVENTS.CHARACTER_LIST_REFRESH = "/delve/character/list/refresh";
     module.EVENTS.CHARACTER_LIST_REVERSE = "/delve/character/list/reverse";
     module.EVENTS.CHARACTER_SOURCE_REQUEST = "/delve/character/source/request";

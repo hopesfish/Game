@@ -12,8 +12,9 @@ define([ "dojo/_base/kernel",
          "delve/widget/CharacterList",
          "delve/widget/CharacterInfo",
          "delve/widget/DicePicker",
+         "delve/widget/Message",
          "delve/engine/Engine",
-         "dojo/NodeList-dom" ], function(dojo, declare, domAttr, domClass, widget, templatedMixin, widgetsInTemplateMixin, template, base, eventMixin, stage, CharacterList, CharacterInfo, DicePicker, Engine){
+         "dojo/NodeList-dom" ], function(dojo, declare, domAttr, domClass, widget, templatedMixin, widgetsInTemplateMixin, template, base, eventMixin, stage, CharacterList, CharacterInfo, DicePicker, Message, Engine){
     // declare our custom class
     return dojo.declare([widget, templatedMixin, widgetsInTemplateMixin, eventMixin], {
         templateString: template,
@@ -44,6 +45,9 @@ define([ "dojo/_base/kernel",
 
             dicePicker = this.dicePicker = new DicePicker();
             dicePicker.placeAt(this.domNode, "last");
+ 
+            var message = new Message();
+            message.placeAt(this.domNode, 'last');
 
             engine = this.engine = Engine({
                 daemons: daemonList.getCharacters(),

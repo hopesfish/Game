@@ -116,6 +116,21 @@ html, body {margin:0; height:100%; background-color:#000;}
     overflow:hidden;
 }
 
+.delve .message {
+    position: absolute;
+    left: 40%;
+    top: 40%;
+    width: 40%;
+    height: 10px;
+}
+.delve .message span {
+    color: #fff;
+    font-size: 4em;
+    display: none;
+}
+.delve .message span:last-child {
+    display: inline;
+}
 .delve .head {
     height: 2.2em;
     font-size:2.2em;
