@@ -163,6 +163,7 @@ html, body {margin:0; height:100%; background-color:#000;}
     height: 100%;
 }
 .delve .character {
+    position: relative;
     float:left;
     width: 148px;
     height: 100%;
@@ -171,6 +172,21 @@ html, body {margin:0; height:100%; background-color:#000;}
     -webkit-border-radius:15px;
     -moz-border-radius: 15px;
     opacity: 0.6;
+}
+.delve .character .count{
+    width:80%;
+    position:absolute;
+    left:10%;
+    bottom:10%;
+    text-align:center;
+    background-color: #000;
+    color:#fff;
+    -webkit-border-radius:15px;
+    -moz-border-radius: 5px;
+    height: 1.8em;
+    font-size: 1.8em;
+    line-height: 1.8em;
+    font-weight: bold;
 }
 .delve .characterZone.selected .character.selected {
     border: 5px solid #333;

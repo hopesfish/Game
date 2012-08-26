@@ -19,7 +19,7 @@ define([ "dojo/_base/kernel",
             if (rule.isHeroAttack) {
                 var str = '';
                 for(var i=0; i<6; i++) {
-                    var r = Math.floor(Math.random() * 7);
+                    var r = Math.floor(Math.random() * 4);
                     if (r == 0) { r = 1; }
                     if (r == 7) { r = 6; }
                     str += r;

@@ -21,7 +21,7 @@ define([ "dojo/_base/array",
         name: '初出茅庐',
         characters: [{
             type: 'Spider',
-            count: 3,
+            count: 5,
             daemon: true
         }, {
             type: 'Warrior',

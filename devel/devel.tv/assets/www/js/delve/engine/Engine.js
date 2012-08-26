@@ -47,7 +47,6 @@ define(["dojo/_base/kernel",
             this.unwatch();
         },
         reverse: function() {
-            this.publish(EVENTS.MESSAGE, ['没有可用角色，切换阵营!']);
             this.isHeroAttack = !this.isHeroAttack;
             this.step = STEPS.DIC_REQ;
             REVERSE_COUNT = 0;
@@ -64,19 +63,19 @@ define(["dojo/_base/kernel",
                 case STEPS.DIC_REQ:
                     this.publish(EVENTS.MESSAGE, ['准备投掷骰子!']);
                     this.step = STEPS.SEL_SRC;
-                    this.sendDiceRequest();
+                    this.sendDiceRequest(); // 必须在上一行后面
                 break;
                 case STEPS.SEL_SRC:
                     this.publish(EVENTS.MESSAGE, ['投掷结果:'+ this.dices + '<br>请选择可用角色!']);
-                    this.step = STEPS.SEL_REV;
                     this.selectSourceCharacter();
+                    this.step = STEPS.SEL_REV;
                 break;
                 case STEPS.SEL_REV:
                     switch (REVERSE_COUNT) {
                     case 0: // 选择目标
                         this.step = STEPS.SEL_TAG;
                         REVERSE_COUNT += 1;
-                        this.next();
+                        this.toggleBattle();
                         break;
                     case 1: // 执行技能
                         this.step = STEPS.ACT_EXE;
@@ -85,11 +84,10 @@ define(["dojo/_base/kernel",
                         break;
                     case 2: // 攻击阵营转换
                         this.publish(EVENTS.MESSAGE, ['轮换攻击方!']);
-                        this.step = STEPS.DIC_REQ;
-                        REVERSE_COUNT = 0;
+                        this.toggleBattle();
+                        this.reverse();
                         break;
                     }
-                    this.toggleBattle();
                 break;
                 case STEPS.SEL_TAG:
                     this.publish(EVENTS.MESSAGE, ['选择目标!']);
@@ -99,7 +97,6 @@ define(["dojo/_base/kernel",
                 case STEPS.ACT_EXE:
                     this.publish(EVENTS.MESSAGE, ['攻击!']);
                     this.execution();
-                    this.isHeroAttack = !this.isHeroAttack;
                     this.step = STEPS.SEL_REV;
                 break;
                 default:
@@ -149,6 +146,7 @@ define(["dojo/_base/kernel",
             if (found > 0) { 
                 this.publish(EVENTS.CHARACTER_LIST_REFRESH);
             } else { // 攻击阵营转换
+                this.publish(EVENTS.MESSAGE, ['无可用角色，切换阵营!']);
                 this.reverse();
             }
         },
@@ -162,18 +160,21 @@ define(["dojo/_base/kernel",
             this.publish(EVENTS.CHARACTER_TARGET_REQUEST);
         },
         execution: function() {
+            var that = this;
             console.info('execute');
             delve.resource.Character.execute(this.source, this.target, this.dices);
-            console.info('hero');
+            console.info('source');
             array.forEach(this.source.instances, function(inst) {
                 console.info(inst.name + ' ' + inst.hp);
             });
-            console.info('daemo');
+            console.info('target');
             array.forEach(this.target.instances, function(inst) {
                 console.info(inst.name + ' ' + inst.hp);
             });
             this.check();
-            this.publish(EVENTS.CHARACTER_LIST_REFRESH);
+            setTimeout(function() {
+                that.publish(EVENTS.BATTLE_REFRESH);
+            }, 500);
         },
         check: function() {
             var count = 0;

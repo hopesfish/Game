@@ -91,6 +91,9 @@ define([ "dojo/_base/kernel",
             var EVENTS = base.EVENTS;
             if (event === EVENTS.CHARACTER_LIST_REVERSE) {
                 this.toggle({isFilter: false});
+            } else if (event === EVENTS.BATTLE_REFRESH) {
+                this.daemonList.refresh();
+                this.heroList.refresh();
             }
         }
     });

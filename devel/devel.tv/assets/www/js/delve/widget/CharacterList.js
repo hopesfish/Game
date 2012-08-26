@@ -49,14 +49,19 @@ define([ "dojo/_base/kernel",
             var that = this;
             domConstruct.empty(this.container);
             array.forEach(this.characters, function(character, idx) {
-                var actived = 'actived';
+                var actived = 'actived', count =0, htmlFragment;
                 if (that.isFilter) {
                     that.selected = character.enabled ? idx : that.selected;
                     actived = character.enabled ? 'actived' : '';
                 }
-                domConstruct.place(
-                        '<div class="character ' + actived + ' ' + character.type.toLowerCase() + '"></div>',
-                        that.container, 'last');
+                array.forEach(character.instances, function(inst) {
+                    if (!inst.isDead()) {
+                        count += 1;
+                    }
+                });
+                htmlFragment = '<div class="character ' + actived + ' ' + character.type.toLowerCase() + '">' + 
+                               '<div class="count">' + count + '</div></div>';
+                domConstruct.place(htmlFragment, that.container, 'last');
             });
         },
         enable: function() {
